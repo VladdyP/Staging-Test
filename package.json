@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cy:cloud": "cypress run --record --key 0a7bc531-46a9-4afb-a33a-777f73388108"
   },
   "keywords": [],
   "author": "",
