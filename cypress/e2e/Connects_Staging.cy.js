@@ -1,6 +1,7 @@
 describe('Login Page test', () => {
   it('Test 01', () => {
     cy.visit('/cupertino')
+    cy.wait(2000)
     cy.get('[id="userName"]').type('Chris')
     cy.get('.MuiButtonBase-root').should('have.text','Continue').click()
     cy.get('[id="password"]').type('Welcome1!')
@@ -8,6 +9,7 @@ describe('Login Page test', () => {
   }),
   it('Test 02', () => {
     cy.visit('/cupertino')
+    cy.wait(2000)
     cy.get('[id="userName"]').type('Chris')
     cy.get('.MuiButtonBase-root').should('have.text','Continue').click()
     cy.get('[id="password"]').type('Welcome1!')
@@ -15,6 +17,7 @@ describe('Login Page test', () => {
   }),
   it('Test 03', () => {
     cy.visit('/cupertino')
+    cy.wait(2000)
     cy.get('[id="userName"]').type('Chris')
     cy.get('.MuiButtonBase-root').should('have.text','Continue').click()
     cy.get('[id="password"]').type('Welcome1!')
@@ -22,9 +25,11 @@ describe('Login Page test', () => {
   }),
   it('Test 04', () => {
     cy.visit('/cupertino')
+    cy.wait(2000) 
     cy.get('[id="userName"]').type('Chris')
     cy.get('.MuiButtonBase-root').should('have.text','Continue').click()
     cy.get('[id="password"]').type('Welcome2!')
     cy.get('[type="submit"]').click()
+    cy.url().should('eq', '/cupertino')
   })
 })
