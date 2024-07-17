@@ -1,3 +1,6 @@
+/// <reference types="cypress" />
+
+
 describe('Login Page test', () => {
   it('Test 01', () => {
     cy.visit('/cupertino')
