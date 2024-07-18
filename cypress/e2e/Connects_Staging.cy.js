@@ -3,7 +3,7 @@
 
 describe('Login Page test', () => {
 
-  beforeEach("New Tests", () => {
+  beforeEach(() => {
     cy.visit('/cupertino')
     cy.wait(2000)
   })
