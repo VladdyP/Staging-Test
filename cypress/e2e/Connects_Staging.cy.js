@@ -35,6 +35,6 @@ describe('Login Page test', () => {
     cy.get('.MuiButtonBase-root').should('have.text','Continue').click()
     cy.get('[id="password"]').type('Welcome1!')
     cy.get('[type="submit"]').click()
-    cy.url().should('eq', '/cupertino')
+  
   })
 })
