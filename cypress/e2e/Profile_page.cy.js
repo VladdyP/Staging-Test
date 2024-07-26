@@ -22,9 +22,11 @@ describe('Profile Page', () => {
 
     })
 
-    it('Celebration Tab', () => {
+    it.only('Celebration Tab', () => {
         cy.get("[data-testid='celebrations']").should('be.visible').click()
         cy.url().should('include', '/cupertino/celebrations')
+        cy.wait(1000)
+        cy.get("#select-small").click()
 
     })
 })
