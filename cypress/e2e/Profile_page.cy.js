@@ -7,11 +7,13 @@ describe('Profile Page', () => {
     })
 
     it('Profile Page Tab', () => {
+        cy.visit('/cupertino')
         cy.get("[data-testid='profile']").should('be.visible').click()
         cy.url().should('include', '/cupertino/me/recognition')
     })
 
     it('Celebration Tab', () => {
+        cy.visit('/cupertino')
         cy.get("[data-testid='celebrations']").should('be.visible').click()
         cy.url().should('include', '/cupertino/celebrations')
         cy.wait(1000)
