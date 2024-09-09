@@ -1,10 +1,10 @@
 /// <reference types="cypress" />
-
+import loginpage from "/cypress/support/pageObjects/login.cy.js"
 
 describe('Login Page test', () => {
 
   beforeEach(() => {
-    cy.visit('/cupertino')
+    loginpage.open()
     cy.wait(2000)
   })
   it('Test 01', () => {
