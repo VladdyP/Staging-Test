@@ -8,6 +8,7 @@ describe('Login Page test', () => {
     loginpage.open()
     cy.wait(2000)
   })
+  
   it('Test 01', () => {
     loginpage.username.type('Chris')
     loginpage.allcookies.click()
@@ -38,7 +39,7 @@ describe('Login Page test', () => {
 
     cy.get('[id="userName"]').type('Chris')
     cy.get('.MuiButtonBase-root').should('have.text','Continue').click()
-    cy.get('[id="password"]').type('Welcome3!')
+    cy.get('[id="password"]').type('Welcome1!')
     cy.get('[type="submit"]').click()
   
   })

@@ -9,6 +9,10 @@ module.exports = defineConfig({
     },
     defaultCommandTimeout: 10000, // Default wait time for commands
     pageLoadTimeout: 60000,       // Timeout for page loads
-    requestTimeout: 5000,         // Timeout for HTTP requests
+    requestTimeout: 5000, 
+    retries: {
+      runMode: 2,  
+      openMode: 1  
+    },
   },
 });
