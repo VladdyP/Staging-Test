@@ -5,11 +5,11 @@ class loginpage {
     }
 
     get username() {
-        return cy.get('[id="userName"]')
+        return cy.get('#userName')
     }
 
     get password() {
-        return cy.get('[id="password"]')
+        return cy.get('#password')
     }
 
     get continuebtn() {

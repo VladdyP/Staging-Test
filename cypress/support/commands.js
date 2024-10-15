@@ -1,3 +1,5 @@
+const cypress = require("cypress");
+
 Cypress.Commands.add('login', (username, password) => {
 
     cy.session([username,password], () => {
@@ -13,5 +15,9 @@ Cypress.Commands.add('login', (username, password) => {
         cy.get("[data-testid='done']").click()
 
     })
-})
+}),
+
+Cypress.Commands.add('getByTestId', (testId) => {
+    return cy.get(`[data-testid=${testId}]`)
+});
 

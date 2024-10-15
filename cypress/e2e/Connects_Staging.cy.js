@@ -29,17 +29,17 @@ describe('Login Page test', () => {
 
   it('Test 03', () => {
 
-    cy.get('[id="userName"]').type('Chris')
+    cy.get('#userName').type('Chris')
     cy.get('.MuiButtonBase-root').should('have.text','Continue').click()
-    cy.get('[id="password"]').type('Welcome1!')
+    cy.get('#password').type('Welcome1!')
     cy.get('[type="submit"]').click()
   }),
 
   it('Test 04', () => {
 
-    cy.get('[id="userName"]').type('Chris')
+    cy.get('#userName').type('Chris')
     cy.get('.MuiButtonBase-root').should('have.text','Continue').click()
-    cy.get('[id="password"]').type('Welcome1!')
+    cy.get('#password').type('Welcome1!')
     cy.get('[type="submit"]').click()
   
   })
