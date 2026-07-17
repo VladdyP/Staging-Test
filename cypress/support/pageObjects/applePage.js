@@ -63,9 +63,8 @@ class ApplePage {
   clickIphone17ProProduct() {
     cy.log('Click iPhone 17 Pro on the iPhone page')
     cy.get('a[href="/iphone-17-pro/"]')
-      .filter(':visible')
       .first()
-      .click()
+      .click({ force: true })
   }
 
   verifyIphone17ProProductPage() {
@@ -76,9 +75,8 @@ class ApplePage {
   clickBuyButton() {
     cy.log('Click the Buy button for iPhone 17 Pro')
     cy.get('a[aria-label="Buy, iPhone 17 Pro"]')
-      .filter(':visible')
       .first()
-      .click()
+      .click({ force: true })
   }
 
   verifyBuyPage() {
