@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 describe('Apple iPhone 17 Pro Buy Test', () => {
-  it('opens iPhone 17 Pro and selects iPhone 17 Pro Max in Silver', () => {
+  it('opens iPhone 17 Pro Max, checks storage is disabled, then selects Silver and storage', () => {
     // Open the Apple home page before starting the test flow.
     cy.log('Open Apple home page')
     cy.visit('https://www.apple.com/')
@@ -53,6 +53,13 @@ describe('Apple iPhone 17 Pro Buy Test', () => {
       .click({ force: true })
       .should('be.checked')
 
+    // Verify that storage options are disabled before choosing a color.
+    cy.log('Check storage is disabled before selecting color')
+    cy.get('[data-autom="dimensionCapacity256gb"]').should('be.disabled')
+    cy.get('[data-autom="dimensionCapacity512gb"]').should('be.disabled')
+    cy.get('[data-autom="dimensionCapacity1tb"]').should('be.disabled')
+    cy.get('[data-autom="dimensionCapacity2tb"]').should('be.disabled')
+
     // Select the Silver color option.
     cy.log('Select Silver color')
     cy.get('[data-autom="dimensionColorsilver"]')
@@ -61,5 +68,21 @@ describe('Apple iPhone 17 Pro Buy Test', () => {
 
     // Verify that Silver is selected or visible on the page.
     cy.contains('label', /^Silver$/).should('be.visible')
+
+    // Verify that storage options become enabled after choosing Silver.
+    cy.log('Check storage is enabled after selecting Silver')
+    cy.get('[data-autom="dimensionCapacity256gb"]').should('not.be.disabled')
+    cy.get('[data-autom="dimensionCapacity512gb"]').should('not.be.disabled')
+    cy.get('[data-autom="dimensionCapacity1tb"]').should('not.be.disabled')
+    cy.get('[data-autom="dimensionCapacity2tb"]').should('not.be.disabled')
+
+    // Select the 256GB storage option.
+    cy.log('Select 256GB storage')
+    cy.get('[data-autom="dimensionCapacity256gb"]')
+      .click({ force: true })
+      .should('be.checked')
+
+    // Verify that the 256GB option is displayed on the page.
+    cy.contains('label', /256GB/).should('be.visible')
   })
 })
