@@ -1,102 +1,62 @@
 /// <reference types="cypress" />
 
+const applePage = require('../support/pageObjects/applePage')
+
 describe('Apple iPhone 17 Pro Buy Test', () => {
   it('opens iPhone 17 Pro Max, selects Silver storage, and chooses no trade-in', () => {
     // Open the Apple home page before starting the test flow.
-    cy.log('Open Apple home page')
-    cy.visit('https://www.apple.com/')
+    applePage.openHomePage()
 
     // Click the iPhone tab from the top navigation menu.
-    cy.log('Click the iPhone tab in the top menu')
-    cy.get('#globalnav a[href="/iphone/"]')
-      .first()
-      .should('be.visible')
-      .click()
+    applePage.clickIphoneTab()
 
     // Verify that the user landed on the iPhone page.
-    cy.location('pathname', { timeout: 20000 }).should('eq', '/iphone/')
+    applePage.verifyIphonePage()
 
     // Open the iPhone 17 Pro product page.
-    cy.log('Click iPhone 17 Pro on the iPhone page')
-    cy.get('a[href="/iphone-17-pro/"]')
-      .filter(':visible')
-      .first()
-      .click()
+    applePage.clickIphone17ProProduct()
 
     // Verify that the iPhone 17 Pro page is displayed.
-    cy.location('pathname', { timeout: 20000 }).should('eq', '/iphone-17-pro/')
-    cy.contains('body', 'iPhone 17 Pro').should('be.visible')
+    applePage.verifyIphone17ProProductPage()
 
     // Click the Buy button to open the iPhone 17 Pro purchase page.
-    cy.log('Click the Buy button for iPhone 17 Pro')
-    cy.get('a[aria-label="Buy, iPhone 17 Pro"]')
-      .filter(':visible')
-      .first()
-      .click()
+    applePage.clickBuyButton()
 
     // Verify that the user landed on the buy page.
-    cy.location('pathname', { timeout: 30000 }).should('include', '/shop/buy-iphone/iphone-17-pro')
+    applePage.verifyBuyPage()
 
-    // Verify the regular iPhone 17 Pro option and starting price.
-    cy.log('Check that iPhone 17 Pro starts at $1099')
-    cy.contains('.form-selector-label', /iPhone 17 Pro\s+6\.3-inch display[\s\S]*From \$1099/)
-      .should('be.visible')
-
-    // Verify the iPhone 17 Pro Max option and starting price.
-    cy.log('Check that iPhone 17 Pro Max starts at $1199')
-    cy.contains('.form-selector-label', /iPhone 17 Pro Max\s+6\.9-inch display[\s\S]*From \$1199/)
-      .should('be.visible')
+    // Verify both iPhone 17 Pro options and starting prices.
+    applePage.verifyIphone17ProStartingPrice()
+    applePage.verifyIphone17ProMaxStartingPrice()
 
     // Select the iPhone 17 Pro Max size option.
-    cy.log('Select iPhone 17 Pro Max')
-    cy.get('[data-autom="dimensionScreensize6_9inch"]')
-      .click({ force: true })
-      .should('be.checked')
+    applePage.selectIphone17ProMax()
 
     // Verify that storage options are disabled before choosing a color.
-    cy.log('Check storage is disabled before selecting color')
-    cy.get('[data-autom="dimensionCapacity256gb"]').should('be.disabled')
-    cy.get('[data-autom="dimensionCapacity512gb"]').should('be.disabled')
-    cy.get('[data-autom="dimensionCapacity1tb"]').should('be.disabled')
-    cy.get('[data-autom="dimensionCapacity2tb"]').should('be.disabled')
+    applePage.verifyStorageOptionsDisabled()
 
     // Select the Silver color option.
-    cy.log('Select Silver color')
-    cy.get('[data-autom="dimensionColorsilver"]')
-      .click({ force: true })
-      .should('be.checked')
+    applePage.selectSilverColor()
 
     // Verify that Silver is selected or visible on the page.
-    cy.contains('label', /^Silver$/).should('be.visible')
+    applePage.verifySilverColorVisible()
 
     // Verify that storage options become enabled after choosing Silver.
-    cy.log('Check storage is enabled after selecting Silver')
-    cy.get('[data-autom="dimensionCapacity256gb"]').should('not.be.disabled')
-    cy.get('[data-autom="dimensionCapacity512gb"]').should('not.be.disabled')
-    cy.get('[data-autom="dimensionCapacity1tb"]').should('not.be.disabled')
-    cy.get('[data-autom="dimensionCapacity2tb"]').should('not.be.disabled')
+    applePage.verifyStorageOptionsEnabled()
 
     // Select the 256GB storage option.
-    cy.log('Select 256GB storage')
-    cy.get('[data-autom="dimensionCapacity256gb"]')
-      .click({ force: true })
-      .should('be.checked')
+    applePage.select256gbStorage()
 
     // Verify that the 256GB option is displayed on the page.
-    cy.contains('label', /256GB/).should('be.visible')
+    applePage.verify256gbStorageVisible()
 
     // Verify that payment options are disabled before answering Apple Trade In.
-    cy.log('Check payment options are disabled before trade-in selection')
-    cy.get('[data-autom="purchaseGroupOptionfullprice"]').should('be.disabled')
-    cy.get('[data-autom="purchaseGroupOptionfinance"]').should('be.disabled')
+    applePage.verifyPaymentOptionsDisabled()
 
     // Select No Trade-In in the Apple Trade In section.
-    cy.log('Select No Trade-In')
-    cy.get('[data-autom="choose-noTradeIn"]')
-      .click({ force: true })
-      .should('be.checked')
+    applePage.selectNoTradeIn()
 
     // Verify that the No Trade-In option is displayed on the page.
-    cy.contains('label', /No trade-in/i).should('be.visible')
+    applePage.verifyNoTradeInVisible()
   })
 })

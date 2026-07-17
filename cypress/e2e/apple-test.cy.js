@@ -1,147 +1,99 @@
 /// <reference types="cypress" />
 
+const applePage = require('../support/pageObjects/applePage')
+
 describe('Apple Menu Bar Tests', () => {
   it('opens the Store tab from the top menu', () => {
     // Open the Apple home page before clicking the menu tab.
-    cy.log('Open Apple home page')
-    cy.visit('https://www.apple.com/')
+    applePage.openHomePage()
 
     // Verify that the top navigation menu is displayed.
-    cy.get('#globalnav').should('be.visible')
+    applePage.verifyTopNavigationVisible()
 
     // Click the Store tab from the top navigation menu.
-    cy.log('Click Store tab')
-    cy.get('#globalnav a[href="/us/shop/goto/store"]')
-      .first()
-      .should('be.visible')
-      .click()
+    applePage.clickStoreTab()
 
     // Verify that the user landed on the Store page.
-    cy.location('pathname', { timeout: 20000 }).should('eq', '/store')
-    cy.contains('body', 'Store').should('be.visible')
+    applePage.verifyStorePage()
   })
 
   it('opens the Mac tab from the top menu', () => {
     // Open the Apple home page before clicking the menu tab.
-    cy.log('Open Apple home page')
-    cy.visit('https://www.apple.com/')
+    applePage.openHomePage()
 
     // Verify that the top navigation menu is displayed.
-    cy.get('#globalnav').should('be.visible')
+    applePage.verifyTopNavigationVisible()
 
     // Click the Mac tab from the top navigation menu.
-    cy.log('Click Mac tab')
-    cy.get('#globalnav a[href="/mac/"]')
-      .first()
-      .should('be.visible')
-      .click()
+    applePage.clickMacTab()
 
     // Verify that the user landed on the Mac page.
-    cy.location('pathname', { timeout: 20000 }).should('eq', '/mac/')
-    cy.contains('body', 'Mac').should('be.visible')
+    applePage.verifyMacPage()
   })
 
   it('opens the iPad tab from the top menu', () => {
     // Open the Apple home page before clicking the menu tab.
-    cy.log('Open Apple home page')
-    cy.visit('https://www.apple.com/')
+    applePage.openHomePage()
 
     // Verify that the top navigation menu is displayed.
-    cy.get('#globalnav').should('be.visible')
+    applePage.verifyTopNavigationVisible()
 
     // Click the iPad tab from the top navigation menu.
-    cy.log('Click iPad tab')
-    cy.get('#globalnav a[href="/ipad/"]')
-      .first()
-      .should('be.visible')
-      .click()
+    applePage.clickIpadTab()
 
     // Verify that the user landed on the iPad page.
-    cy.location('pathname', { timeout: 20000 }).should('eq', '/ipad/')
-    cy.contains('body', 'iPad').should('be.visible')
+    applePage.verifyIpadPage()
   })
 
   it('opens the iPhone tab from the top menu', () => {
     // Open the Apple home page before clicking the menu tab.
-    cy.log('Open Apple home page')
-    cy.visit('https://www.apple.com/')
+    applePage.openHomePage()
 
     // Verify that the top navigation menu is displayed.
-    cy.get('#globalnav').should('be.visible')
+    applePage.verifyTopNavigationVisible()
 
     // Click the iPhone tab from the top navigation menu.
-    cy.log('Click iPhone tab')
-    cy.get('#globalnav a[href="/iphone/"]')
-      .first()
-      .should('be.visible')
-      .click()
+    applePage.clickIphoneTab()
 
     // Verify that the user landed on the iPhone page.
-    cy.location('pathname', { timeout: 20000 }).should('eq', '/iphone/')
-    cy.contains('body', 'iPhone').should('be.visible')
+    applePage.verifyIphonePage()
   })
 })
 
 describe('Apple iPhone 17 Pro Buy Test', () => {
   it('opens iPhone 17 Pro and selects iPhone 17 Pro Max in Silver', () => {
     // Open the Apple home page before starting the test flow.
-    cy.log('Open Apple home page')
-    cy.visit('https://www.apple.com/')
+    applePage.openHomePage()
 
     // Click the iPhone tab from the top navigation menu.
-    cy.log('Click the iPhone tab in the top menu')
-    cy.get('#globalnav a[href="/iphone/"]')
-      .first()
-      .should('be.visible')
-      .click()
+    applePage.clickIphoneTab()
 
     // Verify that the user landed on the iPhone page.
-    cy.location('pathname', { timeout: 20000 }).should('eq', '/iphone/')
+    applePage.verifyIphonePage()
 
     // Open the iPhone 17 Pro product page.
-    cy.log('Click iPhone 17 Pro on the iPhone page')
-    cy.get('a[href="/iphone-17-pro/"]')
-      .filter(':visible')
-      .first()
-      .click()
+    applePage.clickIphone17ProProduct()
 
     // Verify that the iPhone 17 Pro page is displayed.
-    cy.location('pathname', { timeout: 20000 }).should('eq', '/iphone-17-pro/')
-    cy.contains('body', 'iPhone 17 Pro').should('be.visible')
+    applePage.verifyIphone17ProProductPage()
 
     // Click the Buy button to open the iPhone 17 Pro purchase page.
-    cy.log('Click the Buy button for iPhone 17 Pro')
-    cy.get('a[aria-label="Buy, iPhone 17 Pro"]')
-      .filter(':visible')
-      .first()
-      .click()
+    applePage.clickBuyButton()
 
     // Verify that the user landed on the buy page.
-    cy.location('pathname', { timeout: 30000 }).should('include', '/shop/buy-iphone/iphone-17-pro')
+    applePage.verifyBuyPage()
 
-    // Verify the regular iPhone 17 Pro option and starting price.
-    cy.log('Check that iPhone 17 Pro starts at $1099')
-    cy.contains('.form-selector-label', /iPhone 17 Pro\s+6\.3-inch display[\s\S]*From \$1099/)
-      .should('be.visible')
-
-    // Verify the iPhone 17 Pro Max option and starting price.
-    cy.log('Check that iPhone 17 Pro Max starts at $1199')
-    cy.contains('.form-selector-label', /iPhone 17 Pro Max\s+6\.9-inch display[\s\S]*From \$1199/)
-      .should('be.visible')
+    // Verify both iPhone 17 Pro options and starting prices.
+    applePage.verifyIphone17ProStartingPrice()
+    applePage.verifyIphone17ProMaxStartingPrice()
 
     // Select the iPhone 17 Pro Max size option.
-    cy.log('Select iPhone 17 Pro Max')
-    cy.get('[data-autom="dimensionScreensize6_9inch"]')
-      .click({ force: true })
-      .should('be.checked')
+    applePage.selectIphone17ProMax()
 
     // Select the Silver color option.
-    cy.log('Select Silver color')
-    cy.get('[data-autom="dimensionColorsilver"]')
-      .click({ force: true })
-      .should('be.checked')
+    applePage.selectSilverColor()
 
     // Verify that Silver is selected or visible on the page.
-    cy.contains('label', /^Silver$/).should('be.visible')
+    applePage.verifySilverColorVisible()
   })
 })
