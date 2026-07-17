@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 describe('Apple iPhone 17 Pro Buy Test', () => {
-  it('opens iPhone 17 Pro Max, checks storage is disabled, then selects Silver and storage', () => {
+  it('opens iPhone 17 Pro Max, selects Silver storage, and chooses no trade-in', () => {
     // Open the Apple home page before starting the test flow.
     cy.log('Open Apple home page')
     cy.visit('https://www.apple.com/')
@@ -84,5 +84,19 @@ describe('Apple iPhone 17 Pro Buy Test', () => {
 
     // Verify that the 256GB option is displayed on the page.
     cy.contains('label', /256GB/).should('be.visible')
+
+    // Verify that payment options are disabled before answering Apple Trade In.
+    cy.log('Check payment options are disabled before trade-in selection')
+    cy.get('[data-autom="purchaseGroupOptionfullprice"]').should('be.disabled')
+    cy.get('[data-autom="purchaseGroupOptionfinance"]').should('be.disabled')
+
+    // Select No Trade-In in the Apple Trade In section.
+    cy.log('Select No Trade-In')
+    cy.get('[data-autom="choose-noTradeIn"]')
+      .click({ force: true })
+      .should('be.checked')
+
+    // Verify that the No Trade-In option is displayed on the page.
+    cy.contains('label', /No trade-in/i).should('be.visible')
   })
 })
