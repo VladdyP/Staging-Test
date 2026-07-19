@@ -60,6 +60,10 @@ class ApplePage {
     cy.contains('body', 'iPhone').should('be.visible')
   }
 
+  verifyIphonePageTitle() {
+    cy.title().should('include', 'iPhone')
+  }
+
   clickIphone17ProProduct() {
     cy.log('Click iPhone 17 Pro on the iPhone page')
     cy.get('a[href="/iphone-17-pro/"]')

@@ -3,6 +3,20 @@
 const applePage = require('../support/pageObjects/applePage')
 
 describe('Apple iPhone 17 Pro Buy Test', () => {
+  it('opens the iPhone page from the iPhone menu button', () => {
+    // Open the Apple home page before clicking the iPhone tab.
+    applePage.openHomePage()
+
+    // Click the iPhone tab from the top navigation menu.
+    applePage.clickIphoneTab()
+
+    // Verify that the user landed on the iPhone page.
+    applePage.verifyIphonePage()
+
+    // Verify that the browser page title says iPhone.
+    applePage.verifyIphonePageTitle()
+  })
+
   it('opens iPhone 17 Pro Max, selects Silver storage, and chooses no trade-in', () => {
     // Open the Apple home page before starting the test flow.
     applePage.openHomePage()
