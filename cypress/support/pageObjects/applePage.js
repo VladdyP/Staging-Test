@@ -45,6 +45,14 @@ class ApplePage {
     cy.contains('body', 'Store').should('be.visible')
   }
 
+  verifyStorePageUrl() {
+    cy.url({ timeout: 20000 }).should('eq', 'https://www.apple.com/store')
+  }
+
+  verifyStorePageTitle() {
+    cy.title().should('include', 'Store')
+  }
+
   verifyMacPage() {
     cy.location('pathname', { timeout: 20000 }).should('eq', '/mac/')
     cy.contains('body', 'Mac').should('be.visible')
