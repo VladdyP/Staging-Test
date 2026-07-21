@@ -40,6 +40,14 @@ class ApplePage {
       .click()
   }
 
+  clickWatchTab() {
+    cy.log('Click Watch tab')
+    cy.get('#globalnav a[href="/watch/"]')
+      .first()
+      .should('be.visible')
+      .click()
+  }
+
   verifyStorePage() {
     cy.location('pathname', { timeout: 20000 }).should('eq', '/store')
     cy.contains('body', 'Store').should('be.visible')
@@ -70,6 +78,15 @@ class ApplePage {
 
   verifyIphonePageTitle() {
     cy.title().should('include', 'iPhone')
+  }
+
+  verifyWatchPage() {
+    cy.location('pathname', { timeout: 20000 }).should('eq', '/watch/')
+    cy.contains('body', 'Apple Watch').should('be.visible')
+  }
+
+  verifyWatchPageTitle() {
+    cy.title().should('include', 'Apple Watch')
   }
 
   clickIphone17ProProduct() {

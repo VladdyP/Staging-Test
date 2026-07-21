@@ -19,4 +19,18 @@ describe('Apple Store Page Test', () => {
     // Verify that the browser page title says Store.
     applePage.verifyStorePageTitle()
   })
+
+  it('opens the Apple Watch page from the Watch menu tab', () => {
+    // Open the Apple home page before clicking the Watch tab.
+    applePage.openHomePage()
+
+    // Click the Watch tab from the top navigation menu.
+    applePage.clickWatchTab()
+
+    // Verify that the user landed on the Apple Watch page.
+    applePage.verifyWatchPage()
+
+    // Verify that the browser page title says Apple Watch.
+    applePage.verifyWatchPageTitle()
+  })
 })
