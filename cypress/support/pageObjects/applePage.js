@@ -48,6 +48,13 @@ class ApplePage {
       .click()
   }
 
+  clickEntertainmentTab() {
+    cy.log('Click Entertainment tab')
+    cy.contains('#globalnav a', 'Entertainment')
+      .should('be.visible')
+      .click()
+  }
+
   verifyStorePage() {
     cy.location('pathname', { timeout: 20000 }).should('eq', '/store')
     cy.contains('body', 'Store').should('be.visible')
@@ -87,6 +94,30 @@ class ApplePage {
 
   verifyWatchPageTitle() {
     cy.title().should('include', 'Apple Watch')
+  }
+
+  verifyServicesPage() {
+    cy.url({ timeout: 20000 }).should('eq', 'https://www.apple.com/services/')
+  }
+
+  verifyEntertainmentPageTitle() {
+    cy.contains('body', 'Meet the A-list of entertainment.')
+      .should('be.visible')
+  }
+
+  clickAppleArcadeChapterNav() {
+    cy.log('Click Apple Arcade in the chapter navigation')
+    cy.get('.chapternav-items')
+      .should('be.visible')
+      .within(() => {
+        cy.contains('a', 'Apple Arcade')
+          .should('be.visible')
+          .click()
+      })
+  }
+
+  verifyAppleArcadePage() {
+    cy.url({ timeout: 20000 }).should('eq', 'https://www.apple.com/apple-arcade/')
   }
 
   clickIphone17ProProduct() {
