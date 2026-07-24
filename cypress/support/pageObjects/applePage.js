@@ -55,6 +55,45 @@ class ApplePage {
       .click()
   }
 
+  verifySearchWindowHidden() {
+    cy.get('#globalnav-submenu-search')
+      .should('not.be.visible')
+  }
+
+  clickSearchIcon() {
+    cy.log('Click the search icon')
+    cy.get('#globalnav-menubutton-link-search')
+      .should('be.visible')
+      .click()
+  }
+
+  verifySearchWindowVisible() {
+    cy.get('#globalnav-submenu-search')
+      .should('be.visible')
+
+    cy.get('#globalnav-searchfield-src')
+      .should('exist')
+
+    cy.get('.globalnav-searchfield-input')
+      .should('be.visible')
+  }
+
+  enterSearchValue(searchValue) {
+    cy.log(`Search for ${searchValue}`)
+    cy.get('.globalnav-searchfield-input')
+      .should('be.visible')
+      .clear()
+      .type(searchValue)
+  }
+
+  verifySuggestedSearchLinkVisible(searchValue) {
+    cy.get('.globalnav-searchresults')
+      .should('be.visible')
+
+    cy.contains('.globalnav-searchresults a', searchValue)
+      .should('be.visible')
+  }
+
   verifyStorePage() {
     cy.location('pathname', { timeout: 20000 }).should('eq', '/store')
     cy.contains('body', 'Store').should('be.visible')
