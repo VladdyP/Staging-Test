@@ -1,5 +1,9 @@
-name: Cypress test for Connect
-on: [push]
+name: Cypress e2e tests
+
+on:
+  push:
+  workflow_dispatch:
+
 jobs: 
   cypress-run:
     runs-on: ubuntu-latest
@@ -11,6 +15,5 @@ jobs:
         with:
           record: true
           browser: chrome
-          spec: cypress/e2e/Apple/apple*.cy.js
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
