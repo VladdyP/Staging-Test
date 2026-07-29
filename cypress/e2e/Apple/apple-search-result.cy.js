@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-const applePage = require('../support/pageObjects/applePage')
+const applePage = require('../../support/pageObjects/applePage')
 
 describe('Apple Search Result Test', () => {
   it('shows suggested links when user searches for iPhone', () => {

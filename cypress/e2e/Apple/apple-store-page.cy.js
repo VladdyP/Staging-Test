@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-const applePage = require('../support/pageObjects/applePage')
+const applePage = require('../../support/pageObjects/applePage')
 
 describe('Apple Store Page Test', () => {
   it('opens the Store page from the Store menu tab', () => {

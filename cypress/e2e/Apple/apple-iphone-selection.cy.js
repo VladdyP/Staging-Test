@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-const applePage = require('../support/pageObjects/applePage')
+const applePage = require('../../support/pageObjects/applePage')
 
 describe('Apple iPhone 17 Pro Buy Test', () => {
   it('opens the iPhone page from the iPhone menu button', () => {

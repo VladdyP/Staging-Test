@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import loginpage from "/cypress/support/pageObjects/login.cy.js"
+import loginpage from "../../support/pageObjects/login.cy.js"
 
 describe('Login Page test', () => {
 

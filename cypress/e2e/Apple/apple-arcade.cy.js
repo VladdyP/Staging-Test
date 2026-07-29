@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-const applePage = require('../support/pageObjects/applePage')
+const applePage = require('../../support/pageObjects/applePage')
 
 describe('Apple Arcade Tests', () => {
   it('opens the Services page from the Entertainment menu tab', () => {
