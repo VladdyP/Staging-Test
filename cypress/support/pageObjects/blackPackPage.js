@@ -24,15 +24,21 @@ class BlackPackPage {
 
   openHomePage() {
     cy.log('Open Black Pack English home page')
-    cy.window().then((currentWindow) => {
-      currentWindow.location.href = 'https://blackpack.ua/en/'
+    cy.visit('/')
+
+    cy.location('pathname', { timeout: 20000 }).then((pathname) => {
+      if (!/^\/en\/?$/.test(pathname)) {
+        cy.get('a[aria-label="Switch to EN"]', { timeout: 20000 })
+          .should('be.visible')
+          .click()
+      }
     })
 
     this.verifyEnglishLanguageSelected()
   }
 
   verifyHomePageUrl() {
-    cy.url({ timeout: 20000 }).should('eq', 'https://blackpack.ua/en/')
+    cy.url({ timeout: 20000 }).should('match', /^https:\/\/blackpack\.ua\/en\/?$/)
   }
 
   verifyHomePageLoaded() {
@@ -41,7 +47,7 @@ class BlackPackPage {
   }
 
   verifyEnglishLanguageSelected() {
-    cy.location('pathname', { timeout: 20000 }).should('eq', '/en/')
+    cy.location('pathname', { timeout: 20000 }).should('match', /^\/en\/?$/)
     cy.get('a[aria-label="Switch to UA"]', { timeout: 20000 }).should('be.visible')
   }
 
