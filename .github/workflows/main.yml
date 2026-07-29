@@ -10,6 +10,7 @@ jobs:
         uses: cypress-io/github-action@v5
         with:
           record: true
+          browser: chrome
           spec: cypress/e2e/Apple/apple*.cy.js
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
