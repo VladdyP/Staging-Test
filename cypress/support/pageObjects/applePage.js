@@ -184,13 +184,13 @@ class ApplePage {
 
   verifyIphone17ProStartingPrice() {
     cy.log('Check that iPhone 17 Pro starts at $1099')
-    cy.contains('.form-selector-label', /iPhone 17 Pro\s+6\.3-inch display[\s\S]*From \$1099/)
+    cy.contains('.form-selector-label', /iPhone 17 Pro[\s\S]*6\.3-inch display[\s\S]*(buy\s+)?from\s+\$1099/i)
       .should('be.visible')
   }
 
   verifyIphone17ProMaxStartingPrice() {
     cy.log('Check that iPhone 17 Pro Max starts at $1199')
-    cy.contains('.form-selector-label', /iPhone 17 Pro Max\s+6\.9-inch display[\s\S]*From \$1199/)
+    cy.contains('.form-selector-label', /iPhone 17 Pro Max[\s\S]*6\.9-inch display[\s\S]*(buy\s+)?from\s+\$1199/i)
       .should('be.visible')
   }
 
