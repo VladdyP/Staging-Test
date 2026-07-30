@@ -15,6 +15,5 @@ jobs:
         with:
           record: true
           browser: chrome
-          spec: "cypress/e2e/Apple/**/*.cy.js"
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
