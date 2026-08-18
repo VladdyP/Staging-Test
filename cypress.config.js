@@ -3,9 +3,6 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
   projectId: '24m16h',
-  env: {
-    canyonBaseUrl: 'https://www.canyon.com/en-us/',
-  },
   e2e: {
     setupNodeEvents(on, config) {
       // implement node event listeners here
