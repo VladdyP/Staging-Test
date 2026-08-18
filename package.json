@@ -4,7 +4,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "cy:cloud": "cypress run --record --key 0a7bc531-46a9-4afb-a33a-777f73388108"
+    "cy:open": "cypress open --browser chrome",
+    "cy:run": "cypress run --browser chrome",
+    "cy:cloud": "cypress run --browser chrome --record --key 0a7bc531-46a9-4afb-a33a-777f73388108"
   },
   "keywords": [],
   "author": "",
