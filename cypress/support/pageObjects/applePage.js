@@ -60,7 +60,15 @@ class ApplePage {
   }
 
   verifyMacMiniPage() {
-    cy.location('pathname', { timeout: 20000 }).should('eq', '/mac-mini/')
+    cy.url({ timeout: 20000 }).should('eq', 'https://www.apple.com/mac-mini/')
+
+    cy.get('.section-welcome .welcome-headline')
+      .should('be.visible')
+      .and(($title) => {
+        const normalizedTitleText = $title.text().replace(/\u00a0/g, ' ').replace(/\s+/g, ' ').trim()
+
+        expect(normalizedTitleText).to.eq('Little do-it-all.')
+      })
   }
 
   clickMacMiniPreOrder() {
@@ -74,7 +82,15 @@ class ApplePage {
   }
 
   verifyMacMiniPreOrderPage() {
-    cy.location('pathname', { timeout: 20000 }).should('include', '/shop/buy-mac/mac-mini')
+    cy.url({ timeout: 20000 }).should('eq', 'https://www.apple.com/shop/buy-mac/mac-mini')
+
+    cy.get('h1')
+      .should('be.visible')
+      .and(($title) => {
+        const normalizedTitleText = $title.text().replace(/\u00a0/g, ' ').replace(/\s+/g, ' ').trim()
+
+        expect(normalizedTitleText).to.eq('Pre-order Mac mini')
+      })
   }
 
   clickStoreTab() {
