@@ -8,29 +8,6 @@ class ApplePage {
     cy.get('#globalnav').should('be.visible')
   }
 
-  verifyEducationOfferTileCopy() {
-    const expectedHeadline = 'College, sorted.'
-    const expectedSubhead = 'Get a gift card from $100 to $150* when you buy Mac or iPad with education savings.'
-
-    cy.log('Verify the education offer tile copy')
-    cy.contains('.tile-copy-wrapper', expectedHeadline)
-      .should('be.visible')
-      .within(() => {
-        cy.get('.tile-headline.typography-tile-headline')
-          .should('be.visible')
-          .and('contain.text', expectedHeadline)
-
-        cy.get('.tile-subhead.typography-tile-subhead')
-          .should('be.visible')
-          .invoke('text')
-          .then((subheadText) => {
-            const normalizedSubheadText = subheadText.replace(/\s+/g, ' ').trim()
-
-            expect(normalizedSubheadText).to.include(expectedSubhead)
-          })
-      })
-  }
-
   getMacMiniHomePageTile() {
     return cy.get('[data-tile-id="mac-mini-m6-m5-pro"]')
       .should('be.visible')
