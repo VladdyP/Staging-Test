@@ -31,6 +31,75 @@ class ApplePage {
       })
   }
 
+  getMacMiniHomePageTile() {
+    return cy.get('[data-tile-id="mac-mini-m6-m5-pro"]')
+      .should('be.visible')
+  }
+
+  verifyMacMiniHomePageTile() {
+    const expectedHeadline = 'Mac mini'
+    const expectedSubhead = 'Now with M6 and M5 Pro.'
+    const expectedCallout = 'Available starting 9.22'
+
+    cy.log('Verify the Mac mini home page tile')
+    this.getMacMiniHomePageTile()
+      .within(() => {
+        cy.get('.tile-headline')
+          .should('be.visible')
+          .and('have.text', expectedHeadline)
+
+        cy.get('.tile-subhead')
+          .should('be.visible')
+          .and('have.text', expectedSubhead)
+
+        cy.get('.tile-callout')
+          .should('be.visible')
+          .and('have.text', expectedCallout)
+
+        cy.contains('.tile-ctas a', /^Learn more$/)
+          .should('be.visible')
+          .should(($link) => {
+            expect($link).to.have.attr('href', '/mac-mini/')
+            expect($link).not.to.have.attr('aria-disabled', 'true')
+          })
+
+        cy.contains('.tile-ctas a', /^Pre-order$/)
+          .should('be.visible')
+          .should(($link) => {
+            expect($link).to.have.attr('href', '/us/shop/goto/buy_mac/mac_mini')
+            expect($link).not.to.have.attr('aria-disabled', 'true')
+          })
+      })
+  }
+
+  clickMacMiniLearnMore() {
+    cy.log('Click Learn more in the Mac mini home page tile')
+    this.getMacMiniHomePageTile()
+      .within(() => {
+        cy.contains('.tile-ctas a', /^Learn more$/)
+          .should('be.visible')
+          .click()
+      })
+  }
+
+  verifyMacMiniPage() {
+    cy.location('pathname', { timeout: 20000 }).should('eq', '/mac-mini/')
+  }
+
+  clickMacMiniPreOrder() {
+    cy.log('Click Pre-order in the Mac mini home page tile')
+    this.getMacMiniHomePageTile()
+      .within(() => {
+        cy.contains('.tile-ctas a', /^Pre-order$/)
+          .should('be.visible')
+          .click()
+      })
+  }
+
+  verifyMacMiniPreOrderPage() {
+    cy.location('pathname', { timeout: 20000 }).should('include', '/shop/buy-mac/mac-mini')
+  }
+
   clickStoreTab() {
     cy.log('Click Store tab')
     cy.get('#globalnav a[href="/us/shop/goto/store"]')
