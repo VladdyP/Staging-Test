@@ -25,3 +25,11 @@ describe('Apple Mac mini Home Page Test', () => {
     applePage.verifyMacMiniPreOrderPage()
   })
 })
+
+describe('Apple Mac mini Product Page Test', () => {
+  it('displays the M6 and M5 Pro promotion', () => {
+    // Open the Mac mini page and verify the current chip lineup.
+    applePage.openMacMiniPage()
+    applePage.verifyMacMiniChipLineup()
+  })
+})

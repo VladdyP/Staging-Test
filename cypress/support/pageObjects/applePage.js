@@ -4,6 +4,11 @@ class ApplePage {
     cy.visit('https://www.apple.com/')
   }
 
+  openMacMiniPage() {
+    cy.log('Open Apple Mac mini page')
+    cy.visit('https://www.apple.com/mac-mini/')
+  }
+
   verifyTopNavigationVisible() {
     cy.get('#globalnav').should('be.visible')
   }
@@ -68,6 +73,19 @@ class ApplePage {
         const normalizedTitleText = $title.text().replace(/\u00a0/g, ' ').replace(/\s+/g, ' ').trim()
 
         expect(normalizedTitleText).to.eq('Little do-it-all.')
+      })
+  }
+
+  verifyMacMiniChipLineup() {
+    const expectedChipLineup = 'Mac mini now with M6 and M5 Pro.'
+
+    cy.log('Verify the Mac mini chip lineup')
+    cy.get('.section-welcome .welcome-subhead')
+      .should('be.visible')
+      .and(($subhead) => {
+        const normalizedSubheadText = $subhead.text().replace(/\u00a0/g, ' ')
+
+        expect(normalizedSubheadText).to.eq(expectedChipLineup)
       })
   }
 
