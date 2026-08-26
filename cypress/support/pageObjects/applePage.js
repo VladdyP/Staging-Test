@@ -13,6 +13,34 @@ class ApplePage {
     cy.get('#globalnav').should('be.visible')
   }
 
+  getGlobalNavigationTab(itemName) {
+    return cy.get('.globalnav-menu-list')
+      .find(`a[data-globalnav-item-name="${itemName}"]`)
+      .should('have.length', 1)
+  }
+
+  verifyGlobalNavigationTabIsInteractive(itemName, expectedHref) {
+    cy.log(`Verify ${itemName} global navigation tab is interactive`)
+    this.getGlobalNavigationTab(itemName)
+      .should('be.visible')
+      .and(($tab) => {
+        expect($tab).to.have.attr('href', expectedHref)
+        expect($tab).not.to.have.attr('disabled')
+        expect($tab).not.to.have.attr('aria-disabled', 'true')
+      })
+  }
+
+  clickGlobalNavigationTab(itemName) {
+    cy.log(`Click ${itemName} global navigation tab`)
+    this.getGlobalNavigationTab(itemName)
+      .should('be.visible')
+      .click()
+  }
+
+  verifyGlobalNavigationDestination(expectedUrl) {
+    cy.url({ timeout: 30000 }).should('eq', expectedUrl)
+  }
+
   getMacMiniHomePageTile() {
     return cy.get('[data-tile-id="mac-mini-m6-m5-pro"]')
       .should('be.visible')
