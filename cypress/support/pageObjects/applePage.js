@@ -41,6 +41,31 @@ class ApplePage {
     cy.url({ timeout: 30000 }).should('eq', expectedUrl)
   }
 
+  clickExternalGlobalNavigationTabAndVerifyDestination(itemName, expectedUrl) {
+    let clickedUrl
+
+    cy.log(`Click ${itemName} external global navigation tab`)
+    this.getGlobalNavigationTab(itemName)
+      .should('be.visible')
+      .then(($tab) => {
+        $tab.one('click', (event) => {
+          event.preventDefault()
+          clickedUrl = event.currentTarget.href
+        })
+      })
+      .click()
+      .then(() => {
+        expect(clickedUrl).to.eq(expectedUrl)
+      })
+  }
+
+  verifyExternalGlobalNavigationDestinationIsAvailable(expectedUrl) {
+    cy.log(`Verify external global navigation destination responds: ${expectedUrl}`)
+    cy.request(expectedUrl)
+      .its('status')
+      .should('eq', 200)
+  }
+
   getMacMiniHomePageTile() {
     return cy.get('[data-tile-id="mac-mini-m6-m5-pro"]')
       .should('be.visible')

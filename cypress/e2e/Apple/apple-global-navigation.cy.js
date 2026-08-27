@@ -67,7 +67,8 @@ const globalNavigationTabs = [
     label: 'Support',
     itemName: 'support',
     href: 'https://support.apple.com/?cid=gn-ols-home-hp-tab',
-    destinationUrl: 'https://support.apple.com/?cid=gn-ols-home-hp-tab'
+    destinationUrl: 'https://support.apple.com/?cid=gn-ols-home-hp-tab',
+    isExternal: true
   }
 ]
 
@@ -77,14 +78,24 @@ describe('Apple Global Navigation Tests', () => {
     applePage.openHomePage()
   })
 
-  globalNavigationTabs.forEach(({ label, itemName, href, destinationUrl }) => {
-    it(`opens the ${label} destination from its visible and interactive menu tab`, () => {
+  globalNavigationTabs.forEach(({ label, itemName, href, destinationUrl, isExternal }) => {
+    const testTitle = isExternal
+      ? `clicks the ${label} menu tab and verifies its expected external URL`
+      : `opens the ${label} destination from its visible and interactive menu tab`
+
+    it(testTitle, () => {
       // Verify the menu tab is visible, enabled, and points to the expected link.
       applePage.verifyGlobalNavigationTabIsInteractive(itemName, href)
 
-      // Use a normal user click and verify the final destination after redirects.
-      applePage.clickGlobalNavigationTab(itemName)
-      applePage.verifyGlobalNavigationDestination(destinationUrl)
+      if (isExternal) {
+        // Click the external tab, verify its exact destination, and confirm the endpoint is live.
+        applePage.clickExternalGlobalNavigationTabAndVerifyDestination(itemName, destinationUrl)
+        applePage.verifyExternalGlobalNavigationDestinationIsAvailable(destinationUrl)
+      } else {
+        // Use a normal user click and verify the final destination after redirects.
+        applePage.clickGlobalNavigationTab(itemName)
+        applePage.verifyGlobalNavigationDestination(destinationUrl)
+      }
     })
   })
 })

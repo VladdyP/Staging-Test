@@ -2,7 +2,8 @@
 
 const applePage = require('../../support/pageObjects/applePage')
 
-describe('Apple Mac mini Home Page Test', () => {
+// Apple no longer displays the Mac mini promotional tile on the homepage.
+describe.skip('Apple Mac mini Home Page Test', () => {
   beforeEach(() => {
     // Start each test from the Apple home page.
     applePage.openHomePage()
