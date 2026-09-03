@@ -41,6 +41,11 @@ class ApplePage {
     cy.url({ timeout: 30000 }).should('eq', expectedUrl)
   }
 
+  verifyPageTitleIncludes(expectedTitle) {
+    cy.log(`Verify page title includes ${expectedTitle}`)
+    cy.title().should('include', expectedTitle)
+  }
+
   clickExternalGlobalNavigationTabAndVerifyDestination(itemName, expectedUrl) {
     let clickedUrl
 

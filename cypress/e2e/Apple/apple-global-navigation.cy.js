@@ -61,7 +61,8 @@ const globalNavigationTabs = [
     label: 'Accessories',
     itemName: 'accessories',
     href: '/us/shop/goto/buy_accessories',
-    destinationUrl: 'https://www.apple.com/shop/accessories/all'
+    destinationUrl: 'https://www.apple.com/shop/accessories/all',
+    expectedTitle: 'Accessories'
   },
   {
     label: 'Support',
@@ -78,10 +79,12 @@ describe('Apple Global Navigation Tests', () => {
     applePage.openHomePage()
   })
 
-  globalNavigationTabs.forEach(({ label, itemName, href, destinationUrl, isExternal }) => {
+  globalNavigationTabs.forEach(({ label, itemName, href, destinationUrl, expectedTitle, isExternal }) => {
     const testTitle = isExternal
       ? `clicks the ${label} menu tab and verifies its expected external URL`
-      : `opens the ${label} destination from its visible and interactive menu tab`
+      : expectedTitle
+        ? `opens the ${label} destination and verifies its page title`
+        : `opens the ${label} destination from its visible and interactive menu tab`
 
     it(testTitle, () => {
       // Verify the menu tab is visible, enabled, and points to the expected link.
@@ -95,6 +98,10 @@ describe('Apple Global Navigation Tests', () => {
         // Use a normal user click and verify the final destination after redirects.
         applePage.clickGlobalNavigationTab(itemName)
         applePage.verifyGlobalNavigationDestination(destinationUrl)
+
+        if (expectedTitle) {
+          applePage.verifyPageTitleIncludes(expectedTitle)
+        }
       }
     })
   })
