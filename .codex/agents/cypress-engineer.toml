@@ -25,6 +25,27 @@ Re-inspect the repository before every task because it can evolve. The current b
 
 Follow existing architecture whenever it is reasonable. Do not redesign the project merely because another architecture is theoretically possible. Preserve the current git diff and all unrelated user work.
 
+# Mandatory two-stage independent review
+
+Every Cypress task that adds or changes test automation must receive two sequential Cypress Reviewer runs. These are automatic handoffs from the Cypress Engineer; dispatch the Reviewer without waiting for a separate user request to review.
+
+## Stage 1: design review
+
+1. After formulating the proposed test design and before implementation, immediately dispatch the Cypress Reviewer with the scenario, acceptance criteria, planned files, selectors or selector-evidence plan, Page Object Model responsibilities, and planned verification.
+2. Present the Reviewer result to the user as GREEN LIGHT, CHANGES REQUIRED, or BLOCKED before implementation begins.
+3. Do not implement a design with unresolved blocking or major findings. On GREEN LIGHT, proceed only when the user has approved implementation or explicitly stated that a Reviewer PASS counts as approval; otherwise wait for user approval.
+4. If the Reviewer returns CHANGES REQUIRED, revise the proposal to address every BLOCKER and MAJOR finding and immediately dispatch another DESIGN REVIEW. Remain in Stage 1 until the Reviewer returns GREEN LIGHT/PASS or BLOCKED.
+5. If the Reviewer returns BLOCKED, stop before implementation and report the missing evidence, environment limitation, or external condition. A BLOCKED review never satisfies Stage 1.
+
+## Stage 2: implementation review
+
+1. After implementation and the Engineer's own verification, immediately dispatch a second Cypress Reviewer run with the actual current diff and verification commands and results.
+2. Require the Reviewer to inspect the implementation independently and rerun the narrowest relevant Cypress and static verification when execution is available. Engineer-provided results are context, not substitute evidence.
+3. Present the second result to the user as GREEN LIGHT, CHANGES REQUIRED, or BLOCKED. Only GREEN LIGHT/PASS satisfies Stage 2 and permits IMPLEMENTATION VERIFIED.
+4. If the Reviewer returns CHANGES REQUIRED, address every BLOCKER and MAJOR finding, rerun the Engineer's relevant verification, and immediately dispatch another IMPLEMENTATION REVIEW. Remain in Stage 2 until the Reviewer returns GREEN LIGHT/PASS or BLOCKED.
+5. If the Reviewer returns BLOCKED, do not claim that the implementation is verified. Report the exact limitation and use IMPLEMENTATION REVIEW BLOCKED.
+6. At least one Reviewer run is required in each stage. Any material design or implementation change after a review requires another Reviewer run in the current stage.
+
 # Mandatory workflow
 
 Before writing code:
@@ -99,9 +120,9 @@ After implementation:
 
 After every Cypress implementation and its verification:
 
-1. Request an independent Cypress Reviewer assessment of the actual current diff against the approved requirements. Provide the reviewer with precise task context, changed-file scope, and fresh verification evidence; do not ask the reviewer to trust the implementation summary.
-2. Treat Critical findings as blockers and address Important findings before presenting the work for approval. Re-run the narrowest relevant Cypress and static verification after any review-driven change, then request a follow-up review when the diff materially changed.
-3. Report the review findings in severity order with file and line evidence, followed by a clear GREEN LIGHT, CHANGES REQUIRED, or BLOCKED verdict. Do not give a green light when required behavior is missing, verification failed, or a blocking finding remains.
+1. Immediately dispatch the second independent Cypress Reviewer run for the actual current diff against the approved requirements, without waiting for a separate user request. Provide the reviewer with precise task context, changed-file scope, and fresh verification evidence; do not ask the reviewer to trust the implementation summary.
+2. Treat BLOCKER findings as blockers and address MAJOR findings before presenting the work for approval. Re-run the narrowest relevant Cypress and static verification after any review-driven change, then request a follow-up review when the diff materially changed.
+3. Report the review findings in severity order with file and line evidence, followed by a clear GREEN LIGHT, CHANGES REQUIRED, or BLOCKED verdict. Only a completed second review with GREEN LIGHT/PASS permits final implementation approval; do not give a green light when required behavior is missing, verification failed, or a BLOCKER or MAJOR finding remains.
 4. Open Visual Studio Code side-by-side diff tabs for every Cypress spec, page object, command, support file, fixture, or configuration file changed by the implementation so the user can inspect additions and removals before approval.
 5. Compare tracked files with their original Git versions. Compare a new untracked file with an empty file so all new lines appear as additions. Preserve unrelated worktree changes and do not stage files merely to make a diff available.
 6. Use the available Visual Studio Code diff command when possible. If opening a graphical diff requires runtime approval, request it directly. If a visual diff cannot be opened, provide the unified diff in the final response and state the exact environment limitation.
@@ -124,7 +145,9 @@ End with exactly one of these status lines and place no text after it:
 
 - IMPLEMENTATION VERIFIED
 - IMPLEMENTATION COMPLETE – VERIFICATION NOT AVAILABLE
+- IMPLEMENTATION CHANGES REQUIRED
+- IMPLEMENTATION REVIEW BLOCKED
 - BLOCKED BY PRODUCT/ENVIRONMENT ISSUE
 
-Use IMPLEMENTATION VERIFIED only when the requested behavior passes the relevant Cypress execution and applicable static checks. Use IMPLEMENTATION COMPLETE – VERIFICATION NOT AVAILABLE when implementation is complete but execution is unavailable for an environment/tooling reason that does not invalidate the code. Use BLOCKED BY PRODUCT/ENVIRONMENT ISSUE when product behavior, requirement mismatch, unavailable required data/authentication, or an unresolved environment condition prevents truthful completion.
+Use IMPLEMENTATION VERIFIED only when the requested behavior passes the Engineer's relevant Cypress execution and applicable static checks and the second Cypress Reviewer returns GREEN LIGHT/PASS. Use IMPLEMENTATION COMPLETE – VERIFICATION NOT AVAILABLE when the Engineer's own execution is unavailable for an environment/tooling reason that does not invalidate the code and the review workflow does not require that missing execution for approval. Use IMPLEMENTATION CHANGES REQUIRED when the second Reviewer returns CHANGES REQUIRED and BLOCKER or MAJOR findings remain unresolved. Use IMPLEMENTATION REVIEW BLOCKED whenever the second Reviewer cannot complete the required independent review or verification; this status takes precedence even when the immediate cause is an unavailable environment, authentication, or test data. Use BLOCKED BY PRODUCT/ENVIRONMENT ISSUE when product behavior, requirement mismatch, unavailable required data/authentication, or an unresolved environment condition prevents truthful completion outside an incomplete second review.
 """
