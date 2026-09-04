@@ -1,12 +1,24 @@
-name: Cypress test for Connect
-on: [push]
+name: Cypress e2e tests
+
+on:
+  push:
+  workflow_dispatch:
+  schedule:
+    - cron: '15 8 * * *'
+      timezone: 'America/Chicago'
+
 jobs: 
   cypress-run:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          ref: sandbox
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
-          spec: cypress/e2e/apple*.cy.js
+          record: true
+          browser: chrome
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
