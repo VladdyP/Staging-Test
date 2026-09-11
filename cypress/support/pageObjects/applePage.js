@@ -320,46 +320,55 @@ class ApplePage {
     cy.url({ timeout: 20000 }).should('eq', 'https://www.apple.com/apple-arcade/')
   }
 
-  clickIphone17ProProduct() {
-    cy.log('Click iPhone 17 Pro on the iPhone page')
-    cy.get('a[href="/iphone-17-pro/"]')
+  clickIphone18ProProduct() {
+    cy.log('Click iPhone 18 Pro on the iPhone page')
+    cy.get('a[href="/iphone-18-pro/"]')
+      .filter(':visible')
       .first()
-      .click({ force: true })
+      .should('be.visible')
+      .click()
   }
 
-  verifyIphone17ProProductPage() {
-    cy.location('pathname', { timeout: 20000 }).should('eq', '/iphone-17-pro/')
-    cy.contains('body', 'iPhone 17 Pro').should('be.visible')
+  verifyIphone18ProProductPage() {
+    cy.location('pathname', { timeout: 20000 }).should('eq', '/iphone-18-pro/')
+    cy.contains('body', 'iPhone 18 Pro').should('be.visible')
   }
 
-  clickBuyButton() {
-    cy.log('Click the Buy button for iPhone 17 Pro')
-    cy.get('a[aria-label="Buy, iPhone 17 Pro"]')
+  clickIphone18ProPricing() {
+    cy.log('Open pricing for iPhone 18 Pro')
+    cy.get('a[href="/us/shop/goto/buy_iphone/iphone_18_pro"]')
+      .filter(':visible')
       .first()
-      .click({ force: true })
+      .should('be.visible')
+      .click()
   }
 
-  verifyBuyPage() {
-    cy.location('pathname', { timeout: 30000 }).should('include', '/shop/buy-iphone/iphone-17-pro')
+  verifyIphone18ProBuyPage() {
+    cy.location('pathname', { timeout: 30000 }).should('include', '/shop/buy-iphone/iphone-18-pro')
   }
 
-  verifyIphone17ProStartingPrice() {
-    cy.log('Check that iPhone 17 Pro starts at $1099')
-    cy.contains('.form-selector-label', /iPhone 17 Pro[\s\S]*6\.3-inch display[\s\S]*(buy\s+)?from\s+\$1099/i)
+  verifyIphone18ProStartingPrice() {
+    cy.log('Check that iPhone 18 Pro starts at $1199')
+    cy.contains('.form-selector-label', /iPhone 18 Pro[\s\S]*6\.3-inch display[\s\S]*(buy\s+)?from\s+\$1199/i)
       .should('be.visible')
   }
 
-  verifyIphone17ProMaxStartingPrice() {
-    cy.log('Check that iPhone 17 Pro Max starts at $1199')
-    cy.contains('.form-selector-label', /iPhone 17 Pro Max[\s\S]*6\.9-inch display[\s\S]*(buy\s+)?from\s+\$1199/i)
+  verifyIphone18ProMaxStartingPrice() {
+    cy.log('Check that iPhone 18 Pro Max starts at $1299')
+    cy.contains('.form-selector-label', /iPhone 18 Pro Max[\s\S]*6\.9-inch display[\s\S]*(buy\s+)?from\s+\$1299/i)
       .should('be.visible')
   }
 
-  selectIphone17ProMax() {
-    cy.log('Select iPhone 17 Pro Max')
+  selectIphone18ProMax() {
+    cy.log('Select iPhone 18 Pro Max')
     cy.get('[data-autom="dimensionScreensize6_9inch"]')
-      .click({ force: true })
-      .should('be.checked')
+      .invoke('attr', 'id')
+      .then((inputId) => {
+        cy.get(`label[for="${inputId}"]`)
+          .should('be.visible')
+          .click()
+      })
+    cy.get('[data-autom="dimensionScreensize6_9inch"]').should('be.checked')
   }
 
   verifyStorageOptionsDisabled() {
@@ -373,8 +382,13 @@ class ApplePage {
   selectSilverColor() {
     cy.log('Select Silver color')
     cy.get('[data-autom="dimensionColorsilver"]')
-      .click({ force: true })
-      .should('be.checked')
+      .invoke('attr', 'id')
+      .then((inputId) => {
+        cy.get(`label[for="${inputId}"]`)
+          .should('be.visible')
+          .click()
+      })
+    cy.get('[data-autom="dimensionColorsilver"]').should('be.checked')
   }
 
   verifySilverColorVisible() {
@@ -392,8 +406,13 @@ class ApplePage {
   select256gbStorage() {
     cy.log('Select 256GB storage')
     cy.get('[data-autom="dimensionCapacity256gb"]')
-      .click({ force: true })
-      .should('be.checked')
+      .invoke('attr', 'id')
+      .then((inputId) => {
+        cy.get(`label[for="${inputId}"]`)
+          .should('be.visible')
+          .click()
+      })
+    cy.get('[data-autom="dimensionCapacity256gb"]').should('be.checked')
   }
 
   verify256gbStorageVisible() {
@@ -408,7 +427,9 @@ class ApplePage {
 
   selectNoTradeIn() {
     cy.log('Select No Trade-In')
+    // Apple's invisible radio overlays the visible card and receives its pointer events.
     cy.get('[data-autom="choose-noTradeIn"]')
+      .should('not.be.disabled')
       .click({ force: true })
       .should('be.checked')
   }

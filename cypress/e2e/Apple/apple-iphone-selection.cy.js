@@ -2,7 +2,7 @@
 
 const applePage = require('../../support/pageObjects/applePage')
 
-describe('Apple iPhone 17 Pro Buy Test', () => {
+describe('Apple iPhone 18 Pro Buy Test', () => {
   it('opens the iPhone page from the iPhone menu button', () => {
     // Open the Apple home page before clicking the iPhone tab.
     applePage.openHomePage()
@@ -17,7 +17,7 @@ describe('Apple iPhone 17 Pro Buy Test', () => {
     applePage.verifyIphonePageTitle()
   })
 
-  it('opens iPhone 17 Pro Max, selects Silver storage, and chooses no trade-in', () => {
+  it('opens iPhone 18 Pro Max, selects Silver storage, and chooses no trade-in', () => {
     // Open the Apple home page before starting the test flow.
     applePage.openHomePage()
 
@@ -27,24 +27,24 @@ describe('Apple iPhone 17 Pro Buy Test', () => {
     // Verify that the user landed on the iPhone page.
     applePage.verifyIphonePage()
 
-    // Open the iPhone 17 Pro product page.
-    applePage.clickIphone17ProProduct()
+    // Open the iPhone 18 Pro product page.
+    applePage.clickIphone18ProProduct()
 
-    // Verify that the iPhone 17 Pro page is displayed.
-    applePage.verifyIphone17ProProductPage()
+    // Verify that the iPhone 18 Pro page is displayed.
+    applePage.verifyIphone18ProProductPage()
 
-    // Click the Buy button to open the iPhone 17 Pro purchase page.
-    applePage.clickBuyButton()
+    // Open the iPhone 18 Pro pricing page.
+    applePage.clickIphone18ProPricing()
 
     // Verify that the user landed on the buy page.
-    applePage.verifyBuyPage()
+    applePage.verifyIphone18ProBuyPage()
 
-    // Verify both iPhone 17 Pro options and starting prices.
-    applePage.verifyIphone17ProStartingPrice()
-    applePage.verifyIphone17ProMaxStartingPrice()
+    // Verify both iPhone 18 Pro options and starting prices.
+    applePage.verifyIphone18ProStartingPrice()
+    applePage.verifyIphone18ProMaxStartingPrice()
 
-    // Select the iPhone 17 Pro Max size option.
-    applePage.selectIphone17ProMax()
+    // Select the iPhone 18 Pro Max size option.
+    applePage.selectIphone18ProMax()
 
     // Verify that storage options are disabled before choosing a color.
     applePage.verifyStorageOptionsDisabled()
